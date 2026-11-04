@@ -1,0 +1,25 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Treinamento FlavIA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>:root{color-scheme:light;--bg:#F8F9F9;--surface:#FFFFFF;--line:#EEEEEF;--line-2:#DCDCE2;--ink:#0C1E29;--muted-2:#5F6072;--brand:#621DC9;--brand-hover:#4E14A6;--danger:#C0392B;--font:"Roboto","Segoe UI",system-ui,-apple-system,sans-serif}
+*{box-sizing:border-box}html,body{background:var(--bg);color:var(--ink)}
+body{margin:0;min-height:100vh;display:grid;place-items:center;font:14px/1.45 var(--font);-webkit-font-smoothing:antialiased;padding:16px}
+.c{background:var(--surface);border:1px solid var(--line);border-radius:6px;box-shadow:0 1px 6px rgba(12,30,41,.06);padding:40px 32px 32px;width:min(400px,100%);text-align:center}
+.logo{display:flex;justify-content:center;margin-bottom:18px}
+h1{margin:0 0 6px;font-size:24px;font-weight:400}p{margin:0 0 24px;color:var(--muted-2)}
+label{display:block;text-align:left;font-size:13px;margin-bottom:6px;color:var(--ink)}
+input{width:100%;height:40px;padding:0 12px;border:1px solid var(--line-2);border-radius:4px;background:var(--surface);color:var(--ink);font:inherit;font-size:15px;letter-spacing:1px;text-transform:uppercase}
+input:focus{outline:2px solid var(--brand);outline-offset:0;border-color:var(--brand)}
+button{margin-top:16px;width:100%;height:40px;border:1px solid var(--brand);border-radius:4px;background:var(--brand);color:#fff;font:inherit;font-size:14px;font-weight:500;cursor:pointer}
+button:hover{background:var(--brand-hover);border-color:var(--brand-hover)}
+.e{color:var(--danger);font-size:13px;min-height:20px;margin-top:12px}</style></head><body>
+<form class="c" id="f" autocomplete="off"><div class="logo"><svg viewBox="0 0 48 48" width="52" height="52" role="img" aria-label="FlavIA"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B05CFF"/><stop offset="1" stop-color="#621DC9"/></linearGradient></defs><circle cx="24" cy="24" r="24" fill="url(#lg)"/><path d="M14 13h18a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H21l-6 5v-5h-1a3 3 0 0 1-3-3V16a3 3 0 0 1 3-3z" fill="#fff"/><path d="M24 17l1.6 3.4L29 22l-3.4 1.6L24 27l-1.6-3.4L19 22l3.4-1.6z" fill="#621DC9"/></svg></div>
+<h1>Treinamento FlavIA</h1><p>Digite o código de acesso que você recebeu.</p>
+<label for="k">Código de acesso</label><input id="k" placeholder="CXTECH-0000" required><button type="submit">Entrar</button><div class="e" id="e" role="alert"></div></form>
+<script>
+document.getElementById('f').addEventListener('submit',async ev=>{ev.preventDefault();const e=document.getElementById('e');e.textContent='';
+const v=document.getElementById('k').value.trim().toUpperCase().replace(/\s+/g,'');
+const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(v));const h=[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('').slice(0,20);
+try{const r=await fetch(h+'.html',{method:'HEAD'});if(r.ok){location.href=h+'.html';return;}}catch(_){}
+e.textContent='Código inválido. Confira e tente de novo.';});
+</script></body></html>

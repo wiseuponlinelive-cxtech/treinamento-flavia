@@ -320,7 +320,7 @@ td.dots{color:var(--muted);text-align:right;font-size:18px;letter-spacing:1px}
   <main class="page" id="page"></main>
 </div>
 <div class="ov" id="ov" role="dialog" aria-modal="true" aria-label="Treinamento"><div class="ovCard" id="ovBody"></div></div>
-<div class="tbar" id="tbar" hidden><div class="tin"><div class="tprog"><i id="tProg"></i></div><div class="trow"><div class="ttx"><span id="tN"></span><em id="tTec" hidden>Área do time de tecnologia · só consulta</em><b id="tT"></b><p id="tD"></p></div><div class="tbtn"><button class="btn" type="button" id="tPrev">← Anterior</button><button class="btn solid" type="button" id="tNext">Próximo →</button></div></div><small class="tkey">Dica: use as setas ← → do teclado</small></div></div>
+<div class="tbar" id="tbar" hidden><div class="tin"><div class="tprog"><i id="tProg"></i></div><div class="trow"><div class="ttx"><span id="tN"></span><em id="tTec" hidden>Área do time de tecnologia · só mexa com permissão</em><b id="tT"></b><p id="tD"></p></div><div class="tbtn"><button class="btn" type="button" id="tPrev">← Anterior</button><button class="btn solid" type="button" id="tNext">Próximo →</button></div></div><small class="tkey">Dica: use as setas ← → do teclado</small></div></div>
 
 <script>
 (function(){
@@ -650,7 +650,7 @@ Confirme o nome do aluno e envie o link do portal.`;
     {r:'A G An', s:'waba', v:'template', fld:'Nome do template', t:'Criar um template', d:'Nome só com letras minúsculas, números e underscore. Escolha o idioma e a categoria (Utility ou Marketing).'},
     {r:'A G An', s:'waba', v:'template', fld:'Corpo da mensagem', t:'Corpo da mensagem', d:'O texto do template. Use {{first_name}} para o primeiro nome do contato. Header, Footer e Botões são opcionais.'},
     {r:'A G An', s:'waba', v:'template', sel:'.prev', t:'Preview', d:'Mostra como a mensagem vai chegar no WhatsApp. Confira antes de enviar para aprovação.'},
-    {r:'A G', s:'webhook', v:'lista', sel:'.side .it[data-id="webhook"]', t:'A partir daqui: área técnica', d:'Webhook, Credencial e Ferramenta são configurados pelo time de tecnologia. No seu dia a dia, o foco é Prompt, Campanha e Templates. Estas telas aparecem no treinamento só para você saber o que existe: não altere, não exclua e não teste nada aqui sem alinhar antes com o time de tecnologia.'},
+    {r:'A G T', s:'webhook', v:'lista', sel:'.side .it[data-id="webhook"]', t:'A partir daqui: área técnica', d:'Webhook, Credencial e Ferramenta são configurados pelo time de tecnologia. Se você não é da área de TI ou não tem permissão para mexer aqui, use estas telas só para consulta: não altere, não exclua e não teste nada sem alinhar antes com o time de tecnologia. O foco do dia a dia é Prompt, Campanha e Templates.'},
     {r:'A G T', s:'webhook', v:'lista', sel:'.tw', t:'Webhooks', d:'Avisam outros sistemas quando algo acontece com a oportunidade, por exemplo quando ela é ganha ou perdida.'},
     {r:'A G T', s:'webhook', v:'exibir', sel:'.show2', t:'Exibir o webhook', d:'Para onde o aviso vai (URL de Destino), em quais eventos e de quais campanhas.'},
     {r:'A G T', s:'webhook', v:'exibir', sel:'.tw', t:'Eventos do Webhook', d:'O histórico de cada aviso enviado, com o status. Clique no olho para ver os detalhes de um evento.'},
@@ -708,7 +708,7 @@ Confirme o nome do aluno e envie o link do portal.`;
     renderMenu(); renderPage();
     $('tN').textContent = `Passo ${step+1} de ${STEPS.length}`;
     $('tT').textContent = x.t; $('tD').textContent = x.d;
-    $('tTec').hidden = !(['webhook','credencial','ferramenta'].includes(x.s) && (ROLE==='A'||ROLE==='G'));
+    $('tTec').hidden = !(['webhook','credencial','ferramenta'].includes(x.s) && (ROLE==='A'||ROLE==='G'||ROLE==='T'));
     $('tProg').style.width = ((step+1)/STEPS.length*100)+'%';
     $('tPrev').disabled = false;
     $('tNext').textContent = step===STEPS.length-1 ? 'Concluir' : 'Próximo →';
@@ -720,7 +720,7 @@ Confirme o nome do aluno e envie o link do portal.`;
   const move = d => { step = Math.max(-1, Math.min(STEPS.length, step+d)); paint(); };
   const INTRO = `<span class="ovTag">Treinamento FlavIA</span><h2>Vamos conhecer a FlavIA juntos</h2>
     <p>As telas a seguir são iguais às da FlavIA, preenchidas com dados de exemplo. Nada do que aparece aqui é real e nada que você fizer aqui muda o sistema.</p>
-    <ol class="ovList"><li><b>Siga o roteiro.</b> São ${STEPS.length} passos, na ordem do menu: começamos pelo topo da tela e terminamos nas últimas páginas.</li><li><b>Olhe o destaque.</b> Em cada passo, a parte da tela que estamos explicando fica contornada em roxo, e a explicação aparece na barra de baixo.</li><li><b>Avance no seu ritmo.</b> Use as setas → e ← do teclado ou os botões Próximo e Anterior.</li>${(ROLE==='A'||ROLE==='G')?'<li><b>Seu foco no dia a dia: Prompt, Campanha e Templates.</b> Webhook, Credencial e Ferramenta são do time de tecnologia: aparecem marcadas em amarelo e são só para consulta.</li>':''}</ol>
+    <ol class="ovList"><li><b>Siga o roteiro.</b> São ${STEPS.length} passos, na ordem do menu: começamos pelo topo da tela e terminamos nas últimas páginas.</li><li><b>Olhe o destaque.</b> Em cada passo, a parte da tela que estamos explicando fica contornada em roxo, e a explicação aparece na barra de baixo.</li><li><b>Avance no seu ritmo.</b> Use as setas → e ← do teclado ou os botões Próximo e Anterior.</li>${(ROLE==='A'||ROLE==='G'||ROLE==='T')?'<li><b>Foco do dia a dia: Prompt, Campanha e Templates.</b> Webhook, Credencial e Ferramenta são do time de tecnologia e aparecem marcadas em amarelo. Se você não é da área de TI ou não tem permissão, use essas telas só para consulta.</li>':''}</ol>
     <div class="ovAct"><button class="btn solid big" type="button" data-start>Começar o treinamento →</button></div>`;
   const FIM = `<span class="ovTag">Treinamento concluído</span><h2>Pronto, você passou por toda a FlavIA</h2><p>Agora é praticar na FlavIA de verdade. Lembre de conferir a conta no topo antes de mexer e de publicar o prompt depois de salvar.</p><div class="ovAct"><button class="btn" type="button" data-restart>Recomeçar do início</button><button class="btn solid" type="button" data-back>Voltar ao último passo</button></div>`;
   document.addEventListener('click', e=>{
